@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		/*
+			写一个function，清除字符串前后的空格
+		*/
+		//answer one:
+		function trim(str) {
+		    if (str & typeof str === "string") {
+		        return str.replace(/^(\s*)|(\s*)$/g,""); //去除前后空白符
+		    }
+		}
+		//answer two:
+		var str = "   xiao  ming   ";
+		var str2 = str.trim();
+		/*
+			降维数组
+		*/
+		function Jw(obj){
+		     return Array.prototype.concat.apply([],obj);
+		}
+		var arr=[[1,2],[3,4]];
+		Jw(arr);
+		/*
+			对象变成数组
+		*/
+		function toArr(obj){
+           var arr1=[];
+           for(var i in obj){
+               arr1.push(obj[i]);
+           }
+           return arr1;
+		}
+		var data={a:1,b:2,c:3};
+		console.log(toArr(data));
+		/*
+			判断一个字符串中出现次数最多的字符，统计这个次数
+			charAt(i)  : 返回当前字符串下标的值 str.charAt(i) == str[i];
+		*/
+		var str = 'asdfssaaasasasasaazzzzzzzzzz';
+		var json = {};
+		for (var i = 0; i < str.length; i++) {
+	        if(!json[str.charAt(i)]){
+	            json[str.charAt(i)] = 1;
+	        }else{
+	            json[str.charAt(i)]++;
+	        }
+		};
+		var iMax = 0;
+		var iIndex = '';
+		for(var i in json){
+	        if(json[i]>iMax){
+                iMax = json[i];
+                iIndex = i;
+	        }
+		}
+		alert('出现次数最多的是:'+iIndex+'出现'+iMax+'次');
+		/*
+			编写一个方法 求一个字符串的字节长度
+		*/
+		function getStrLength(str){
+			var count = str.length;
+			for(var i in str){
+				if(str[i].charCodeAt() > 255){
+					count++;
+				}
+			}
+			return count;
+		}
+		getStrLength('ss龙珠');
+
+		/*
+			编写一个方法 去掉一个数组的重复元素
+		*/
+		//es6
+		var arr = [1,2,3,4,3,2,1];
+		arr1 = [...new Set(arr)];
+		//answer one:
+		function removeCommon(){
+			var json = {};
+			for (var i = 0; i < str.length; i++) {
+			    json[str[i]] = str[i];
+			}
+			var ss = [] ;
+			for(var i in json) ss.push(json[i]);
+			return ss;
+		}
+		var str = [1,2,3,1,43,12,12,1,'s','s'];
+		removeCommon(str);
+		//answer two:
+		var arr = [0,2,3,4,4,0,2];
+		var obj = {};
+		var tmp = [];
+		for(var i = 0 ;i< arr.length;i++){
+		   if( !obj[arr[i]] ){
+		      obj[arr[i]] = 1;
+		      tmp.push(arr[i]);
+		   }
+		}
+		console.log(tmp);
+		//answer three:
+		var arr = [2,3,4,4,5,2,3,6],
+			arr2 = [];
+		for(var i = 0;i< arr.length;i++){
+		    if(arr2.indexOf(arr[i]) < 0){
+		        arr2.push(arr[i]);
+		    }
+		}
+		console.log(arr2);
+		/*
+			JavaScript中如何检测一个变量是一个String类型？请写出函数实现 
+		*/
+		typeof(obj) == 'string';
+		obj.constructor == String;
+		/*
+			使用递归和循环实现1!+2!+3!+4!+...+15!
+		*/
+        function rec(n){
+        	if(n == 1){
+        		return 1;
+        	}
+        	else{
+        		return n*rec(n-1);
+        	}
+        }
+		function init(m){
+			count = 0;
+			for(var i = 1; i <= m; i++){
+				count  += rec(i);
+			}
+		}
+		init(15);
+		console.log(count);
+
+		/*
+			输出今天的日期，以YYYY-MM-DD的方式
+		*/
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var data = date.getDate();
+		if(month < 10){
+			month = "0"+month;
+		}
+		if(data < 10){
+			data = "0"+data;
+		}
+		console.log(year+"-"+month+"-"+data);
+
+		/*
+			已知有字符串foo=”get-element-by-id”,
+			写一个function将其转化成驼峰表示法”getElementById”
+		*/
+		function upper(foo){
+			var f1 = [];
+			for(var i = 0; i < foo.length; i++){
+				if(foo[i] == "-"){
+					f1.push(foo[++i].toUpperCase());
+				}else{
+					f1.push(foo[i]);
+				}
+			}
+			console.log(f1.join(""));
+		}
+		var foo = "get-element-by-id";
+		upper(foo);
+		/*
+			已知有一字符串str='hello word'，写一个函数实现用空格隔开字符，
+			即'h e l l o   w o r d'
+		*/
+		function spacify(e){
+			return e.split('').join(" ");
+		}
+		spacify('hello word');
+		/*
+ 			随即选取10个1~100(包含1和100)之间的整数,允许重复，并把这些值放到一个数组中,然后使用sort对该数组进行升序排序
+		*/
+		var arr = [];
+		for(var i = 0; i < 10; i++){
+			var res = parseInt(Math.random()*100+1);
+			arr[i] = res;
+		}
+		arr.sort(function(v1,v2){
+			return v1-v2;
+		});
+		console.log(arr);
+		/*
+			你如何获取浏览器URL中查询字符串中的参数？
+			测试地址为：http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23
+		*/
+		function showWindowHref(){
+		    var sHref = window.location.href;
+		    var args = sHref.split('?');
+		    if(args[0] == sHref){
+		        return "";
+		    }
+		    var arr = args[1].split('&');
+		    var obj = {};
+		    for(var i = 0;i< arr.length;i++){
+		        var arg = arr[i].split('=');
+		        obj[arg[0]] = arg[1];
+		    }
+		    return obj;
+		}
+		var href = showWindowHref();
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
